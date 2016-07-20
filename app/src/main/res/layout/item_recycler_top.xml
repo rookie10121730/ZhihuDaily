@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="250dp"
+    xmlns:CircleIndicator="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/topView">
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/top"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_gravity="center">
+    </android.support.v4.view.ViewPager>
+
+
+    <com.seven.hzxubowen.zhihudaily.widget.CircleIndicator
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:id="@+id/indicator"
+        android:layout_gravity="center_horizontal|bottom"
+        CircleIndicator:ci_background="@android:color/white"
+        CircleIndicator:ci_selected_background="#e6454a"
+        CircleIndicator:ci_mode="outside"
+        CircleIndicator:ci_gravity="center"
+        CircleIndicator:ci_radius="5dp"
+        CircleIndicator:ci_margin="3dp"
+        />
+</FrameLayout>

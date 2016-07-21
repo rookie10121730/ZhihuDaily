@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 
-public class LoadingFragment extends Fragment {
+public class LoadingFragment extends BaseFragment {
 
     public LoadingFragment() {
         // Required empty public constructor

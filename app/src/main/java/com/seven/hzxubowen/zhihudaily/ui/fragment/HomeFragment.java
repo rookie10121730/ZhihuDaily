@@ -22,6 +22,7 @@ import com.seven.hzxubowen.zhihudaily.adapter.MyViewPagerAdapter;
 import com.seven.hzxubowen.zhihudaily.bean.ApiURL;
 import com.seven.hzxubowen.zhihudaily.bean.Story;
 import com.seven.hzxubowen.zhihudaily.cache.BitmapCache;
+import com.seven.hzxubowen.zhihudaily.net.MyRequestQueue;
 import com.seven.hzxubowen.zhihudaily.widget.CircleIndicator;
 import com.seven.hzxubowen.zhihudaily.widget.TopStoryView;
 
@@ -32,10 +33,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class HomeFragment extends BaseFragment{
-
-    //用于接收MainActivity中传入的latestStringInfo
-    private static final String HOME_INFO = "param1";
-    private String mHomeInfo;
 
     //当前页面的控件，RecyclerView和SwipeRefreshLayout
     private RecyclerView mRecyclerView;
@@ -61,16 +58,14 @@ public class HomeFragment extends BaseFragment{
     private ComplexRecyclerViewAdapter adapter;
     private MyViewPagerAdapter myViewPagerAdapter;
 
-    //指示器
-    private CircleIndicator circleIndicator;
 
     //标记当前新闻的日期
     private int currentDate;
     //用于辨别是下拉刷新还是上拉加载
     private boolean isNeedRefresh = false;
 
-    // true代表下拉刷新，false代表上拉加载
-    private boolean isRefresh = true;
+    //0代表初次加载，1代表下拉刷新，2代表上滑加载
+    private int requestType = 0;
 
     //用于触发回调，切换新的Fragment显示详情
     public interface OnFragmentInteractionListener {
@@ -81,11 +76,8 @@ public class HomeFragment extends BaseFragment{
 
     }
 
-    public static HomeFragment newInstance(String param1) {
+    public static HomeFragment newInstance() {
         HomeFragment fragment = new HomeFragment();
-        Bundle args = new Bundle();
-        args.putString(HOME_INFO, param1);
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -93,14 +85,12 @@ public class HomeFragment extends BaseFragment{
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         resetData();
-        if (getArguments() != null) {
-            mHomeInfo = getArguments().getString(HOME_INFO);
-        }
 
-        mQueue = Volley.newRequestQueue(getActivity());
-        imageLoader = new ImageLoader(mQueue, new BitmapCache());
-
-        resHomeJsonResponse(mHomeInfo);
+        //获取全局的RequestQueue和ImageLoader
+        mQueue = MyRequestQueue.getSingleton(getActivity()).getRequestQueue();
+        imageLoader = MyRequestQueue.getSingleton(getActivity()).getImageLoader();
+        showLoadingFragment("loading");
+        getHomeResponse(ApiURL.ZHIHU_LATEST_URL);
     }
 
     @Override
@@ -115,10 +105,10 @@ public class HomeFragment extends BaseFragment{
         mRecyclerView.setLayoutManager(mLayoutManager);
         myViewPagerAdapter = new MyViewPagerAdapter(mTopViewList);
         mSwipeRefreshLayout = (SwipeRefreshLayout) v.findViewById(R.id.sr_home);
-        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener(){
             @Override
             public void onRefresh() {
-                isRefresh = true;
+                requestType = 1;
                 isNeedRefresh = true;
                 refresh();
             }
@@ -129,7 +119,7 @@ public class HomeFragment extends BaseFragment{
                 new OnLoadMoreListener() {
                     @Override
                     public void onLoadMore() {
-                        isRefresh = false;
+                        requestType = 2;
                         loadMore();
                     }
                 });
@@ -216,23 +206,35 @@ public class HomeFragment extends BaseFragment{
     BaseRequest.StringResponse response = new BaseRequest.StringResponse() {
         @Override
         public void responseSucc(String response) {
-            if(isRefresh){
-                resHomeJsonResponse(response);
-                myViewPagerAdapter.notifyDataSetChanged();
-                adapter.notifyItemRangeChanged(1, mNewsList.size());
-                Log.e("xbw2", "News:" + mNewsList.size() + " Top:" + mTopViewList.size());
-                if(mSwipeRefreshLayout.isRefreshing()){
-                    mSwipeRefreshLayout.setRefreshing(false);
-                }
-            }
-            else{
-                if(mNewsList.size() > 0 && mNewsList.get(mNewsList.size()-1) == null){
-                    mNewsList.remove(mNewsList.size() - 1);
-                    adapter.notifyItemRemoved(mNewsList.size() + 1);
-                }
-                resHomeJsonResponse(response);
-                adapter.notifyItemRangeChanged(0, mNewsList.size()+1);
-                adapter.setLoaded();
+            switch (requestType){
+                case 0:
+                    dismissLoadingFragment();
+                    resHomeJsonResponse(response);
+                    myViewPagerAdapter.notifyDataSetChanged();
+                    adapter.notifyItemRangeChanged(1, mNewsList.size());
+                    break;
+                case 1:
+                    resHomeJsonResponse(response);
+                    myViewPagerAdapter.notifyDataSetChanged();
+                    adapter.notifyItemRangeChanged(1, mNewsList.size());
+                    Log.e("xbw2", "News:" + mNewsList.size() + " Top:" + mTopViewList.size());
+                    if(mSwipeRefreshLayout.isRefreshing()){
+                        mSwipeRefreshLayout.setRefreshing(false);
+                    }
+                    break;
+                case 2:
+                    if(mNewsList.size() > 0 && mNewsList.get(mNewsList.size()-1) == null){
+                        mNewsList.remove(mNewsList.size() - 1);
+                        adapter.notifyItemRemoved(mNewsList.size() + 1);
+                    }
+                    resHomeJsonResponse(response);
+                    adapter.notifyItemRangeChanged(0, mNewsList.size()+1);
+                    adapter.setLoaded();
+                    break;
+                default:
+                    dismissLoadingFragment();
+                    resHomeJsonResponse(response);
+                    break;
             }
         }
     };

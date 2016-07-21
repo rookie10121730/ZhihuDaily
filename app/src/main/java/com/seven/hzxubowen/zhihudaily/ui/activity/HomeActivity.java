@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,11 +14,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
+
 import com.seven.hzxubowen.zhihudaily.R;
+import com.seven.hzxubowen.zhihudaily.ui.fragment.ContentFragment;
+import com.seven.hzxubowen.zhihudaily.ui.fragment.HomeFragment;
 import com.seven.hzxubowen.zhihudaily.ui.fragment.TitleFragment;
 
+import java.util.ArrayList;
+
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener, HomeFragment.OnFragmentInteractionListener{
 
     private int currentId;
 
@@ -38,7 +45,7 @@ public class HomeActivity extends AppCompatActivity
         //设置初始Fragment
         navigationView.setCheckedItem(R.id.nav_camera);
         currentId = R.id.nav_camera;
-        Fragment fragment = TitleFragment.newInstance("title daily", "4");
+        Fragment fragment = HomeFragment.newInstance();
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.fr_container, fragment).commit();
 
@@ -112,5 +119,14 @@ public class HomeActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void onFragmentInteraction(String newsId, ArrayList<String> idList){
+        Toast.makeText(HomeActivity.this, "clicked", Toast.LENGTH_SHORT).show();
+        /*FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        fragmentTransaction.replace(R.id.container, ContentFragment.newInstance(newsId, idList));
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();*/
     }
 }

@@ -8,10 +8,10 @@ import android.support.v4.app.FragmentManager;
  */
 public class BaseFragment extends DialogFragment {
 
-    private LoadFragment loadingFragment;
+    private LoadingFragment loadingFragment;
 
     public void showLoadingFragment(String text) {
-        loadingFragment = LoadFragment.newInstance();
+        loadingFragment = LoadingFragment.newInstance();
         loadingFragment.show(getActivity().getSupportFragmentManager(), "loading");
     }
 

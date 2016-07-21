@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements HomeFragment.OnFr
         @Override
         public void responseSucc(String response){
             mFragmentManager.beginTransaction().replace(R.id.container,
-                    HomeFragment.newInstance(response), "home").commit();
+                    HomeFragment.newInstance(), "home").commit();
         }
     };
 

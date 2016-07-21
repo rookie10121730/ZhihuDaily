@@ -3,34 +3,54 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:id="@+id/nav_home"
+            android:icon="@drawable/nav_home"
+            android:title="首页消息" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:id="@+id/nav_phi"
+            android:icon="@drawable/nav_phi"
+            android:title="心理学" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
+            android:id="@+id/nav_rec"
+            android:icon="@drawable/nav_rec"
+            android:title="用户推荐" />
         <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/nav_movie"
+            android:icon="@drawable/nav_movie"
+            android:title="电影日报" />
+
+        <item
+            android:id="@+id/nav_boring"
+            android:icon="@drawable/nav_boring"
+            android:title="不许无聊" />
+        <item
+            android:id="@+id/nav_company"
+            android:icon="@drawable/nav_company"
+            android:title="大公司日报" />
+
+        <item
+            android:id="@+id/nav_design"
+            android:icon="@drawable/nav_design"
+            android:title="设计日报" />
+
+        <item
+            android:id="@+id/nav_finance"
+            android:icon="@drawable/nav_finance"
+            android:title="财经日报" />
+
+        <item
+            android:id="@+id/nav_security"
+            android:icon="@drawable/nav_secruity"
+            android:title="互联网安全" />
+
+        <item
+            android:id="@+id/nav_sports"
+            android:icon="@drawable/nav_sports"
+            android:title="体育日报" />
+
+
     </group>
 
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
-        </menu>
-    </item>
+
 
 </menu>

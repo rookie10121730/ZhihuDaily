@@ -43,12 +43,11 @@ public class HomeActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         //设置初始Fragment
-        navigationView.setCheckedItem(R.id.nav_camera);
-        currentId = R.id.nav_camera;
+        navigationView.setCheckedItem(R.id.nav_home);
+        currentId = R.id.nav_home;
         Fragment fragment = HomeFragment.newInstance();
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.fr_container, fragment).commit();
-
         navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -90,34 +89,45 @@ public class HomeActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
         Fragment fragment = null;
-        Class fragmentClass;
-        if (id == R.id.nav_camera) {
-            fragmentClass = TitleFragment.class;
-        } else if (id == R.id.nav_gallery) {
-            fragmentClass = TitleFragment.class;
-        } else if (id == R.id.nav_slideshow) {
-            fragmentClass = TitleFragment.class;
-        } else if (id == R.id.nav_manage) {
-            fragmentClass = TitleFragment.class;
-        } else if (id == R.id.nav_share) {
-            fragmentClass = TitleFragment.class;
-        } else if (id == R.id.nav_send) {
-            fragmentClass = TitleFragment.class;
-        }else{
-            fragmentClass = TitleFragment.class;
+        if(currentId != id){
+            switch(id){
+                case R.id.nav_home:
+                    fragment = HomeFragment.newInstance();
+                    break;
+                case R.id.nav_company:
+                    fragment = TitleFragment.newInstance("大公司日报" , "5");
+                    break;
+                case R.id.nav_design:
+                    fragment = TitleFragment.newInstance("设计日报", "4");
+                    break;
+                case R.id.nav_finance:
+                    fragment = TitleFragment.newInstance("财经日报", "6");
+                    break;
+                case R.id.nav_movie:
+                    fragment = TitleFragment.newInstance("电影日报", "3");
+                    break;
+                case R.id.nav_phi:
+                    fragment = TitleFragment.newInstance("日常心理学", "13");
+                    break;
+                case R.id.nav_rec:
+                    fragment = TitleFragment.newInstance("用户推荐日报", "12");
+                    break;
+                case R.id.nav_security:
+                    fragment = TitleFragment.newInstance("互联网安全", "10");
+                    break;
+                case R.id.nav_boring:
+                    fragment = TitleFragment.newInstance("不许无聊", "11");
+                    break;
+                case R.id.nav_sports:
+                    fragment = TitleFragment.newInstance("体育日报", "8");
+            }
         }
-
-        try{
-            fragment = TitleFragment.newInstance("title daily", "5");
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.fr_container, fragment).commit();
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+        if(fragment != null){
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.fr_container, fragment).commit();
+        }
         return true;
     }
 

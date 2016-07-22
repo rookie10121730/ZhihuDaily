@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.seven.hzxubowen.zhihudaily.Util.LatestStringRequest;
+import com.seven.hzxubowen.zhihudaily.Util.OnFragmentInteractionListener;
 import com.seven.hzxubowen.zhihudaily.ui.fragment.ContentFragment;
 import com.seven.hzxubowen.zhihudaily.ui.fragment.HomeFragment;
 import com.seven.hzxubowen.zhihudaily.R;
@@ -16,7 +17,7 @@ import com.seven.hzxubowen.zhihudaily.ui.fragment.LoadingFragment;
 import java.util.ArrayList;
 
 
-public class MainActivity extends AppCompatActivity implements HomeFragment.OnFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity implements OnFragmentInteractionListener {
 
 
     private RequestQueue mQueue;

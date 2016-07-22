@@ -53,7 +53,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void myCustomTextViewAnimation(TextView tv){
-        Animation animation=new TranslateAnimation(0,0,480,480);
+        Animation animation=new TranslateAnimation(0,0,480,0);
         animation.setDuration(2000);
         tv.startAnimation(animation);
     }

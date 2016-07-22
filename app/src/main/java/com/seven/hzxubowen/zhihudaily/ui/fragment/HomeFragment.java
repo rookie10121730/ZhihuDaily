@@ -15,6 +15,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.seven.hzxubowen.zhihudaily.R;
+import com.seven.hzxubowen.zhihudaily.Util.OnFragmentInteractionListener;
 import com.seven.hzxubowen.zhihudaily.Util.OnLoadMoreListener;
 import com.seven.hzxubowen.zhihudaily.Util.BaseRequest;
 import com.seven.hzxubowen.zhihudaily.adapter.ComplexRecyclerViewAdapter;
@@ -66,11 +67,6 @@ public class HomeFragment extends BaseFragment{
 
     //0代表初次加载，1代表下拉刷新，2代表上滑加载
     private int requestType = 0;
-
-    //用于触发回调，切换新的Fragment显示详情
-    public interface OnFragmentInteractionListener {
-        void onFragmentInteraction(String newsId, ArrayList<String> idList);
-    }
 
     public HomeFragment() {
 

@@ -1,10 +1,12 @@
 package com.seven.hzxubowen.zhihudaily.ui.fragment;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -12,6 +14,7 @@ import com.android.volley.RequestQueue;
 import com.seven.hzxubowen.zhihudaily.R;
 import com.seven.hzxubowen.zhihudaily.Util.BaseRequest;
 import com.seven.hzxubowen.zhihudaily.Util.LogicUtil;
+import com.seven.hzxubowen.zhihudaily.Util.OnFragmentInteractionListener;
 import com.seven.hzxubowen.zhihudaily.adapter.NewsAdapter;
 import com.seven.hzxubowen.zhihudaily.bean.ApiURL;
 import com.seven.hzxubowen.zhihudaily.bean.Story;
@@ -27,12 +30,13 @@ import java.util.ArrayList;
 /**
  * Created by hzxubowen on 2016/7/19.
  */
-public class TitleFragment extends BaseFragment {
+public class TitleFragment extends BaseFragment implements ListView.OnItemClickListener{
 
     public static final String TITLE = "param1";
     public static final String ID = "param2";
     public String mTitle;
     public String mId;
+    private ArrayList<String> mIdList;
 
     private RequestQueue mQueue;
     private BaseRequest mBaseRequest;
@@ -44,6 +48,9 @@ public class TitleFragment extends BaseFragment {
     private ListView mListView;
     private MyNetWorkImageView mTitleImage;
     private TextView mTitleEditor;
+
+    private OnFragmentInteractionListener mListener;
+
 
     public TitleFragment(){
 
@@ -75,6 +82,7 @@ public class TitleFragment extends BaseFragment {
         mBaseRequest.getPastNews(ApiURL.ZHIHU_TITLE_DAILY + mId);
 
         mStoryList = new ArrayList<>();
+        mIdList = new ArrayList<>();
 
         mNewsAdapter = new NewsAdapter(getActivity(), mStoryList, MyRequestQueue.getSingleton(getActivity()).getImageLoader());
     }
@@ -88,6 +96,7 @@ public class TitleFragment extends BaseFragment {
         mTitleImage = (MyNetWorkImageView) v.findViewById(R.id.title_image);
         //mTitleEditor = (TextView) v.findViewById(R.id.title_text);
         mListView.setAdapter(mNewsAdapter);
+        mListView.setOnItemClickListener(this);
         LogicUtil.setListViewHeight(mListView);
         return v;
 
@@ -121,10 +130,36 @@ public class TitleFragment extends BaseFragment {
                     story = new Story(jo.getString("title"), (String)jo.getJSONArray("images").get(0),
                             jo.getString("id"));
                 }
+                mIdList.add(jo.getString("id"));
                 mStoryList.add(story);
             }
         }catch (JSONException e){
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    //防止Activity销毁后，mListener仍然保留对Activity的引用，造成内存泄漏
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+        mListener.onFragmentInteraction(mStoryList.get(position).getStoryId(), mIdList);
+    }
+
+
 }

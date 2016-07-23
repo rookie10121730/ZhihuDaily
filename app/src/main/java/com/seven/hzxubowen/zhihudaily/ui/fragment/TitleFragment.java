@@ -20,6 +20,7 @@ import com.seven.hzxubowen.zhihudaily.bean.ApiURL;
 import com.seven.hzxubowen.zhihudaily.bean.Story;
 import com.seven.hzxubowen.zhihudaily.net.MyRequestQueue;
 import com.seven.hzxubowen.zhihudaily.widget.MyNetWorkImageView;
+import com.seven.hzxubowen.zhihudaily.widget.TitleHeaderView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -46,8 +47,10 @@ public class TitleFragment extends BaseFragment implements ListView.OnItemClickL
     private String mUrl;
 
     private ListView mListView;
-    private MyNetWorkImageView mTitleImage;
-    private TextView mTitleEditor;
+    //用来当ListView的header的View
+    private TitleHeaderView mTitleHeaderView;
+
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -91,13 +94,14 @@ public class TitleFragment extends BaseFragment implements ListView.OnItemClickL
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState){
         View v = inflater.inflate(R.layout.fr_title, container, false);
-
         mListView = (ListView) v.findViewById(R.id.title_list);
-        mTitleImage = (MyNetWorkImageView) v.findViewById(R.id.title_image);
+
+        mTitleHeaderView = new TitleHeaderView(getActivity());
         //mTitleEditor = (TextView) v.findViewById(R.id.title_text);
         mListView.setAdapter(mNewsAdapter);
         mListView.setOnItemClickListener(this);
-        LogicUtil.setListViewHeight(mListView);
+        mListView.addHeaderView(mTitleHeaderView);
+        //LogicUtil.setListViewHeight(mListView);
         return v;
 
     }
@@ -108,7 +112,7 @@ public class TitleFragment extends BaseFragment implements ListView.OnItemClickL
             dismissLoadingFragment();
             getTitleResponse(response);
             mNewsAdapter.notifyDataSetChanged();
-            LogicUtil.setListViewHeight(mListView);
+            //LogicUtil.setListViewHeight(mListView);
         }
     };
 
@@ -116,14 +120,13 @@ public class TitleFragment extends BaseFragment implements ListView.OnItemClickL
         try{
             JSONObject jsonObject = new JSONObject(response);
             mUrl = jsonObject.getString("background");
-            mTitleImage.setImageUrl(mUrl, MyRequestQueue.getSingleton(getActivity()).getImageLoader());
+            mTitleHeaderView.setImageUrl(mUrl, MyRequestQueue.getSingleton(getActivity()).getImageLoader());
             JSONArray storyJsonArray = jsonObject.getJSONArray("stories");
             for(int i=0; i<storyJsonArray.length(); i++){
                 JSONObject jo = storyJsonArray.getJSONObject(i);
                 //判断story是否有无图新闻
                 Story story;
                 if(!jo.has("images")){
-                    Log.e("No Imgage", "true");
                     story = new Story(jo.getString("title"), null,
                             jo.getString("id"));
                 }else{

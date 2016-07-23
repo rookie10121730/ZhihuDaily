@@ -60,9 +60,11 @@ public class NewsAdapter extends BaseAdapter {
             viewHolder.storyImage.setImageUrl(storyList.get(position).getImageUrl(), imageLoader);
         }else{
             viewHolder.storyImage.setVisibility(View.GONE);
-            //ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-            //        ViewGroup.LayoutParams.WRAP_CONTENT);
-            //viewHolder.storyTitle.setLayoutParams(layoutParams);
+/*
+            ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            viewHolder.storyTitle.setLayoutParams(layoutParams);
+            */
         }
         return convertView;
 

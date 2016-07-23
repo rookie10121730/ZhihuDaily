@@ -9,7 +9,9 @@
         <com.seven.hzxubowen.zhihudaily.widget.MyNetWorkImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/title_image" />
+            android:scaleType="fitXY"
+            android:id="@+id/title_image"
+            android:layout_marginBottom="5dp"/>
         <ListView
             android:id="@+id/title_list"
             android:layout_width="match_parent"

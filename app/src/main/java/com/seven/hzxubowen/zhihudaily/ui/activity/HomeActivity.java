@@ -122,7 +122,9 @@ public class HomeActivity extends AppCompatActivity
                     break;
                 case R.id.nav_sports:
                     fragment = TitleFragment.newInstance("体育日报", "8");
+                    break;
             }
+            currentId = id;
         }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

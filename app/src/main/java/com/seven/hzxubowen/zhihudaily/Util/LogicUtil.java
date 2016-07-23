@@ -19,6 +19,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -105,6 +106,50 @@ public class LogicUtil {
 
         queue.add(jsonRequest);
     }
+
+    //计算日期是星期几，并作简单处理
+    public static String getWeekByDateStr(String strDate)
+    {
+        int year = Integer.parseInt(strDate.substring(0, 4));
+        int month = Integer.parseInt(strDate.substring(4, 6));
+        int day = Integer.parseInt(strDate.substring(6, 8));
+
+        Calendar c = Calendar.getInstance();
+
+        c.set(Calendar.YEAR, year);
+        c.set(Calendar.MONTH, month - 1);
+        c.set(Calendar.DAY_OF_MONTH, day);
+
+        String week = "";
+        int weekIndex = c.get(Calendar.DAY_OF_WEEK);
+
+        switch (weekIndex)
+        {
+            case 1:
+                week = "星期天";
+                break;
+            case 2:
+                week = "星期一";
+                break;
+            case 3:
+                week = "星期二";
+                break;
+            case 4:
+                week = "星期三";
+                break;
+            case 5:
+                week = "星期四";
+                break;
+            case 6:
+                week = "星期五";
+                break;
+            case 7:
+                week = "星期六";
+                break;
+        }
+        return month+"月" + day +"日 " + week;
+    }
+
 
 
 }

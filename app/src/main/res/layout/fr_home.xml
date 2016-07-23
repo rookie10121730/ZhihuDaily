@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#d2d8e0"
+    android:background="#F3F3F3"
     android:id="@+id/sr_home">
 
     <android.support.v7.widget.RecyclerView

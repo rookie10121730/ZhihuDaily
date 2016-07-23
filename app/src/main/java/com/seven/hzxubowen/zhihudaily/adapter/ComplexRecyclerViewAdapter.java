@@ -16,10 +16,13 @@ import android.widget.TextView;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.seven.hzxubowen.zhihudaily.R;
+import com.seven.hzxubowen.zhihudaily.Util.LogicUtil;
 import com.seven.hzxubowen.zhihudaily.Util.OnLoadMoreListener;
 import com.seven.hzxubowen.zhihudaily.bean.Story;
 import com.seven.hzxubowen.zhihudaily.widget.CircleIndicator;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -129,7 +132,15 @@ public class ComplexRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVie
         switch(getItemViewType(position)){
             case DATE:
                 ViewHolderForDate vh1 = (ViewHolderForDate) viewHolder;
-                vh1.getDateText().setText((String)mNewsList.get(position - 1));
+                //vh1.getDateText().setText((String)mNewsList.get(position - 1));
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+                String str = sdf.format(new Date());
+                if(str.equals(mNewsList.get(position - 1))){
+                    vh1.getDateText().setText("今日热闻");
+                }else{
+                    vh1.getDateText().setText(LogicUtil.getWeekByDateStr((String)mNewsList.get(position - 1)));
+                }
+
                 break;
             case NEWS:
                 ViewHolderForStory vh2 = (ViewHolderForStory) viewHolder;

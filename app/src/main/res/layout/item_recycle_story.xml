@@ -7,7 +7,7 @@
     android:layout_margin="5dp"
     android:orientation="horizontal"
     card_view:cardBackgroundColor="@color/cardview_light_background"
-    card_view:cardCornerRadius="20dp">
+    card_view:cardCornerRadius="10dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -15,7 +15,7 @@
         android:padding="10dp">
 
         <TextView
-            android:layout_width="190dp"
+            android:layout_width="220dp"
             android:layout_height="wrap_content"
             android:textSize="18dp"
             android:id="@+id/story_title"
@@ -26,8 +26,8 @@
 
         <com.android.volley.toolbox.NetworkImageView
             android:id="@+id/story_image"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_alignParentRight="true"
             />
     </RelativeLayout>

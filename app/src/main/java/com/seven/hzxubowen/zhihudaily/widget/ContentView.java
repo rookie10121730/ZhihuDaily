@@ -67,4 +67,11 @@ public class ContentView extends FrameLayout {
         mWebView.loadDataWithBaseURL("file:///android_asset/", html, "text/html","UTF-8", null);
     }
 
+    public MyNetWorkImageView getmImgView() {
+        return mImgView;
+    }
+
+    public TextView getmTextView() {
+        return mTextView;
+    }
 }

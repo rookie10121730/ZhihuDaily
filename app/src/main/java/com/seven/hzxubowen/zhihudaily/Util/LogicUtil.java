@@ -79,12 +79,17 @@ public class LogicUtil {
                 @Override
                 public void onResponse(JSONObject response) {
                     try{
-                        String title = response.getString("title");
-                        String imageUrl = response.getString("image");
-                        String imageSrc = response.getString("image_source");
+                        String title, imageUrl;
+                        if(response.has("image") && response.has("title")){
+                            title = response.getString("title");
+                            imageUrl = response.getString("image");
+                            view.setImageResource(imageUrl, imageLoader);
+                            view.setText(title);
+                        }else{
+                            view.getmImgView().setVisibility(View.GONE);
+                            view.getmTextView().setVisibility(View.GONE);
+                        }
                         String body = response.getString("body");
-                        view.setImageResource(imageUrl, imageLoader);
-                        view.setText(title);
                         view.setWebView(body);
 
                     }catch (JSONException e){

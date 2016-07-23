@@ -1,5 +1,6 @@
 package com.seven.hzxubowen.zhihudaily.ui.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
@@ -136,6 +137,10 @@ public class HomeActivity extends AppCompatActivity
 
     public void onFragmentInteraction(String newsId, ArrayList<String> idList){
         Toast.makeText(HomeActivity.this, "clicked" + newsId, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(HomeActivity.this, NewsActivity.class);
+        intent.putStringArrayListExtra(NewsActivity.NEWS_LIST, idList);
+        intent.putExtra(NewsActivity.NEWS_ID, newsId);
+        startActivity(intent);
         /*FragmentTransaction fragmentTransaction = mFragmentManager.beginTransaction();
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         fragmentTransaction.replace(R.id.container, ContentFragment.newInstance(newsId, idList));

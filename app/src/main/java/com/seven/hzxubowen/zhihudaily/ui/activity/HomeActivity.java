@@ -95,33 +95,43 @@ public class HomeActivity extends AppCompatActivity
             switch(id){
                 case R.id.nav_home:
                     fragment = HomeFragment.newInstance();
+                    getSupportActionBar().setTitle("首页");
                     break;
                 case R.id.nav_company:
                     fragment = TitleFragment.newInstance("大公司日报" , "5");
+                    getSupportActionBar().setTitle("大公司日报");
                     break;
                 case R.id.nav_design:
                     fragment = TitleFragment.newInstance("设计日报", "4");
+                    getSupportActionBar().setTitle("设计日报");
                     break;
                 case R.id.nav_finance:
                     fragment = TitleFragment.newInstance("财经日报", "6");
+                    getSupportActionBar().setTitle("财经日报");
                     break;
                 case R.id.nav_movie:
                     fragment = TitleFragment.newInstance("电影日报", "3");
+                    getSupportActionBar().setTitle("电影日报");
                     break;
                 case R.id.nav_phi:
                     fragment = TitleFragment.newInstance("日常心理学", "13");
+                    getSupportActionBar().setTitle("日常心理学");
                     break;
                 case R.id.nav_rec:
                     fragment = TitleFragment.newInstance("用户推荐日报", "12");
+                    getSupportActionBar().setTitle("用户推荐日报");
                     break;
                 case R.id.nav_security:
                     fragment = TitleFragment.newInstance("互联网安全", "10");
+                    getSupportActionBar().setTitle("互联网安全");
                     break;
                 case R.id.nav_boring:
                     fragment = TitleFragment.newInstance("不许无聊", "11");
+                    getSupportActionBar().setTitle("不许无聊");
                     break;
                 case R.id.nav_sports:
                     fragment = TitleFragment.newInstance("体育日报", "8");
+                    getSupportActionBar().setTitle("体育日报");
                     break;
             }
             currentId = id;

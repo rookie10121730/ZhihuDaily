@@ -3,7 +3,9 @@ package com.seven.hzxubowen.zhihudaily.ui.activity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
@@ -24,10 +26,15 @@ public class MainActivity extends AppCompatActivity implements OnFragmentInterac
     private FragmentManager mFragmentManager;
     private LatestStringRequest mLateStringRequest;
 
+    private ActionBar mActionBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
 
         setContentView(R.layout.ac_main);
         mQueue = Volley.newRequestQueue(this);

@@ -3,7 +3,9 @@ package com.seven.hzxubowen.zhihudaily.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
@@ -35,20 +37,33 @@ public class NewsActivity extends AppCompatActivity{
     private ViewPager mViewPager;
     private ContentViewPagerAdapter contentViewPagerAdapter;
 
+    private ActionBar mActionBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.fr_content);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.news_title_bar);
+        setSupportActionBar(toolbar);
+        mActionBar = getSupportActionBar();
+        mActionBar.setDisplayHomeAsUpEnabled(true);
+        mActionBar.setHomeAsUpIndicator(android.R.drawable.ic_lock_power_off);
+
+
         Intent intent = getIntent();
         if(intent != null){
             mNewsList = intent.getStringArrayListExtra(NEWS_LIST);
             mNewsId = intent.getStringExtra(NEWS_ID);
         }
 
+
+
+
         mRequestQueue = MyRequestQueue.getSingleton(this).getRequestQueue();
         mImageLoader = MyRequestQueue.getSingleton(this).getImageLoader();
 
-        setContentView(R.layout.fr_content);
+
         mViewPager = (ViewPager) findViewById(R.id.content_view_pager);
         initData();
 

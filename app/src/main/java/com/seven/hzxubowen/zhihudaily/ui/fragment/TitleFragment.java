@@ -3,10 +3,12 @@ package com.seven.hzxubowen.zhihudaily.ui.fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -19,12 +21,14 @@ import com.seven.hzxubowen.zhihudaily.adapter.NewsAdapter;
 import com.seven.hzxubowen.zhihudaily.bean.ApiURL;
 import com.seven.hzxubowen.zhihudaily.bean.Story;
 import com.seven.hzxubowen.zhihudaily.net.MyRequestQueue;
+import com.seven.hzxubowen.zhihudaily.widget.CircleNetworkImageView;
 import com.seven.hzxubowen.zhihudaily.widget.MyNetWorkImageView;
 import com.seven.hzxubowen.zhihudaily.widget.TitleHeaderView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -50,6 +54,7 @@ public class TitleFragment extends BaseFragment implements ListView.OnItemClickL
     //用来当ListView的header的View
     private TitleHeaderView mTitleHeaderView;
 
+    private LinearLayout mEditorLayout;
 
 
     private OnFragmentInteractionListener mListener;
@@ -96,7 +101,9 @@ public class TitleFragment extends BaseFragment implements ListView.OnItemClickL
         View v = inflater.inflate(R.layout.fr_title, container, false);
         mListView = (ListView) v.findViewById(R.id.title_list);
 
+
         mTitleHeaderView = new TitleHeaderView(getActivity());
+        mEditorLayout = (LinearLayout) mTitleHeaderView.findViewById(R.id.title_editor);
         //mTitleEditor = (TextView) v.findViewById(R.id.title_text);
         mListView.setAdapter(mNewsAdapter);
         mListView.setOnItemClickListener(this);
@@ -136,6 +143,19 @@ public class TitleFragment extends BaseFragment implements ListView.OnItemClickL
                 mIdList.add(jo.getString("id"));
                 mStoryList.add(story);
             }
+
+            JSONArray editorJsonArray = jsonObject.getJSONArray("editors");
+            for(int i=0; i<editorJsonArray.length(); i++){
+                JSONObject jo = editorJsonArray.getJSONObject(i);
+                CircleNetworkImageView civ = new CircleNetworkImageView(getActivity());
+                LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(100, 100);
+                lp.setMargins(10, 10, 10, 10);
+                lp.gravity = Gravity.CENTER_VERTICAL;
+                civ.setLayoutParams(lp);
+                civ.setImageUrl(jo.getString("avatar"), MyRequestQueue.getSingleton(getActivity()).getImageLoader());
+                mEditorLayout.addView(civ);
+            }
+
         }catch (JSONException e){
             e.printStackTrace();
         }
@@ -161,7 +181,12 @@ public class TitleFragment extends BaseFragment implements ListView.OnItemClickL
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-        mListener.onFragmentInteraction(mStoryList.get(position).getStoryId(), mIdList);
+        if(position == 0){
+            return;
+        }else {
+            mListener.onFragmentInteraction(mStoryList.get(position - 1).getStoryId(), mIdList);
+        }
+
     }
 
 

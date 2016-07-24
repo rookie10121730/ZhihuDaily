@@ -1,5 +1,6 @@
 package com.seven.hzxubowen.zhihudaily.Util;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -150,6 +151,12 @@ public class LogicUtil {
         return month+"月" + day +"日 " + week;
     }
 
+
+    //px转换成dp
+    public static int px2dp(Context context, float px) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return (int) (px / scale + 0.5f);
+    }
 
 
 }

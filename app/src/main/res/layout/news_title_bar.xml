@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="?attr/actionBarSize"
+    android:background="#00A2ED">
+
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/back" />
+
+
+    <TextView
+        android:id="@+id/tv_popularity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:text="..."
+        android:textColor="#ffffff"
+        android:textSize="18dp"
+        android:layout_alignParentRight="true"
+
+        android:layout_marginRight="10dp"/>
+
+    <ImageView
+        android:id="@+id/iv_add_popularity"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/praise"
+        android:layout_toLeftOf="@id/tv_popularity"/>
+
+    <TextView
+        android:id="@+id/tv_comments"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:text="..."
+        android:textColor="#ffffff"
+        android:textSize="18dp"
+        android:layout_toLeftOf="@id/iv_add_popularity"
+        android:layout_marginRight="10dp"/>
+
+    <ImageView
+        android:id="@+id/iv_comments"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/comment"
+        android:layout_toLeftOf="@id/tv_comments"/>
+
+    <ImageView
+        android:id="@+id/iv_share"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginRight="20dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/share"
+        android:layout_toLeftOf="@id/iv_comments"/>
+
+
+</RelativeLayout>

@@ -6,6 +6,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
@@ -44,27 +45,45 @@ public class NewsActivity extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fr_content);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.news_title_bar);
-        setSupportActionBar(toolbar);
-        mActionBar = getSupportActionBar();
-        mActionBar.setDisplayHomeAsUpEnabled(true);
-        mActionBar.setHomeAsUpIndicator(android.R.drawable.ic_lock_power_off);
-
 
         Intent intent = getIntent();
         if(intent != null){
             mNewsList = intent.getStringArrayListExtra(NEWS_LIST);
             mNewsId = intent.getStringExtra(NEWS_ID);
         }
-
-
-
-
         mRequestQueue = MyRequestQueue.getSingleton(this).getRequestQueue();
         mImageLoader = MyRequestQueue.getSingleton(this).getImageLoader();
-
-
         mViewPager = (ViewPager) findViewById(R.id.content_view_pager);
+        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                Log.d("测试代码", "onPageScrolled滑动中" + position);
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                Log.d("测试代码", "onPageSelected选中了" + position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+                if (state == ViewPager.SCROLL_STATE_DRAGGING) {
+                    //正在滑动   pager处于正在拖拽中
+
+                    Log.d("测试代码", "onPageScrollStateChanged=======正在滑动" + "SCROLL_STATE_DRAGGING");
+
+                } else if (state == ViewPager.SCROLL_STATE_SETTLING) {
+                    //pager正在自动沉降，相当于松手后，pager恢复到一个完整pager的过程
+                    Log.d("测试代码", "onPageScrollStateChanged=======自动沉降" + "SCROLL_STATE_SETTLING");
+
+                } else if (state == ViewPager.SCROLL_STATE_IDLE) {
+                    //空闲状态  pager处于空闲状态
+                    Log.d("测试代码", "onPageScrollStateChanged=======空闲状态" + "SCROLL_STATE_IDLE");
+                }
+            }
+        });
+
+
         initData();
 
     }
@@ -86,8 +105,4 @@ public class NewsActivity extends AppCompatActivity{
         }
 
     }
-
-
-
-
 }

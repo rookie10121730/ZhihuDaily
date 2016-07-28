@@ -24,10 +24,9 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getSupportActionBar().hide();
         EasySplashScreen config = new EasySplashScreen(SplashActivity.this)
                 .withFullScreen()
-                .withTargetActivity(MainActivity.class)
+                .withTargetActivity(HomeActivity.class)
                 .withSplashTimeOut(3000)
                 .withBackgroundResource(android.R.color.holo_blue_light)
                 .withFooterText("Copyright By Seven")

@@ -15,8 +15,9 @@ public class ApiURL {
 
     //单项主题日报
     public static final String ZHIHU_TITLE_DAILY = "http://news-at.zhihu.com/api/4/theme/";
-    //主题日报列表
-    public static final String ZHIHU_TITLE_LIST = "http://news-at.zhihu.com/api/4/themes";
+
+    //获取评论点赞
+    public static final String ZHIHU_NEWS_EXTRA = "http://news-at.zhihu.com/api/4/story-extra/";
 
 
 }

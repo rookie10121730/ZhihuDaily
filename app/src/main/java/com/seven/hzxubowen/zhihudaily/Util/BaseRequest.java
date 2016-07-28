@@ -23,7 +23,7 @@ public class BaseRequest {
 
     public void getPastNews(String url){
         StringRequest sq = new StringRequest(url,
-                new Response.Listener<String>(){
+                 new Response.Listener<String>(){
                     @Override
                     public void onResponse(String response){
                         mResponse.responseSucc(response);

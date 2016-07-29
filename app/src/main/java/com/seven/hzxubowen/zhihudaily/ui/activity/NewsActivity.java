@@ -83,7 +83,6 @@ public class NewsActivity extends AppCompatActivity{
 
                 } else if (state == ViewPager.SCROLL_STATE_IDLE) {
                     //空闲状态  pager处于空闲状态
-                    Log.d("测试代码", "onPageScrollStateChanged=======空闲状态" + "SCROLL_STATE_IDLE");
                     if(mViewPager.getCurrentItem() != mCurrentPosition){
                         mCurrentPosition = mViewPager.getCurrentItem();
                         mPraise.setText("...");
@@ -91,14 +90,10 @@ public class NewsActivity extends AppCompatActivity{
                         BaseRequest request = new BaseRequest(mRequestQueue, listener);
                         request.getPastNews(ApiURL.ZHIHU_NEWS_EXTRA + mNewsList.get(mCurrentPosition));
                     }
-
                 }
             }
         });
-
-
         initData();
-
     }
 
 

@@ -2,6 +2,7 @@ package com.seven.hzxubowen.zhihudaily.ui.fragment;
 
 
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.view.LayoutInflater;
@@ -33,6 +34,7 @@ public class LoadingFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setStyle(DialogFragment.STYLE_NO_TITLE, R.style.Theme_BlackSdkDialog);
     }
 
     @Override

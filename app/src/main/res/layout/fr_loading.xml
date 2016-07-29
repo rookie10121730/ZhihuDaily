@@ -5,11 +5,9 @@
     tools:context=".ui.fragment.LoadingFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <ProgressBar
-        android:id="@+id/indeterminate_progress_large_native"
+    <me.zhanghai.android.materialprogressbar.MaterialProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|top"
         android:indeterminate="true"
-        style="?android:progressBarStyleLarge" />
+        style="@style/Widget.MaterialProgressBar.ProgressBar" />
 </FrameLayout>

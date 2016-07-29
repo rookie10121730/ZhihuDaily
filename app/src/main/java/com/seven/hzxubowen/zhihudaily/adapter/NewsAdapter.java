@@ -5,7 +5,10 @@ import android.opengl.Visibility;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
@@ -60,11 +63,11 @@ public class NewsAdapter extends BaseAdapter {
             viewHolder.storyImage.setImageUrl(storyList.get(position).getImageUrl(), imageLoader);
         }else{
             viewHolder.storyImage.setVisibility(View.GONE);
-/*
-            ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT);
+
+            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT,
+                    RelativeLayout.LayoutParams.WRAP_CONTENT);
             viewHolder.storyTitle.setLayoutParams(layoutParams);
-            */
+
         }
         return convertView;
 

@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -132,4 +133,18 @@ public class NewsActivity extends AppCompatActivity{
         }
 
     }
+
+
+    public void goBack(View v){
+        super.onBackPressed();
+    }
+
+    public void share(View v){
+        Intent shareIntent = new Intent(Intent.ACTION_SEND);
+        shareIntent.setType("text/plain");
+        shareIntent.putExtra(Intent.EXTRA_TEXT, "http://codepath.com");
+        startActivity(Intent.createChooser(shareIntent, "Share link using"));
+    }
+
+
 }

@@ -9,7 +9,8 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_centerVertical="true"
-        android:src="@drawable/back" />
+        android:src="@drawable/back"
+        android:onClick="goBack"/>
 
 
     <TextView
@@ -58,7 +59,8 @@
         android:layout_marginRight="20dp"
         android:layout_centerVertical="true"
         android:src="@drawable/share"
-        android:layout_toLeftOf="@id/iv_comments"/>
+        android:layout_toLeftOf="@id/iv_comments"
+        android:onClick="share"/>
 
 
 </RelativeLayout>

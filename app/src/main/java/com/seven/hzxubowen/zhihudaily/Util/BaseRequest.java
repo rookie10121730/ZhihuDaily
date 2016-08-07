@@ -14,6 +14,7 @@ public class BaseRequest {
 
     public interface StringResponse{
         void responseSucc(String response);
+        void responseFail(VolleyError error);
     }
 
     public BaseRequest(RequestQueue queue, StringResponse Response){
@@ -31,7 +32,7 @@ public class BaseRequest {
                 new Response.ErrorListener(){
                     @Override
                     public void onErrorResponse(VolleyError error){
-
+                        mResponse.responseFail(error);
                     }
                 });
         mQueue.add(sq);

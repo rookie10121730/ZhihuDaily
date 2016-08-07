@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 import com.seven.hzxubowen.zhihudaily.R;
@@ -97,7 +98,6 @@ public class NewsActivity extends AppCompatActivity{
         initData();
     }
 
-
     BaseRequest.StringResponse listener = new BaseRequest.StringResponse() {
         @Override
         public void responseSucc(String response) {
@@ -105,10 +105,14 @@ public class NewsActivity extends AppCompatActivity{
                 JSONObject jo = new JSONObject(response);
                 mPraise.setText(jo.getString("popularity"));
                 mComments.setText(jo.getString("comments"));
-
             }catch(Exception e){
                 e.printStackTrace();
             }
+        }
+
+        @Override
+        public void responseFail(VolleyError error){
+
         }
     };
 

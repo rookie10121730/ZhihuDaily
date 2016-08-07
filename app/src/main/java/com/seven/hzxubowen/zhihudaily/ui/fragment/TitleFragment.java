@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
 import com.seven.hzxubowen.zhihudaily.R;
 import com.seven.hzxubowen.zhihudaily.Util.BaseRequest;
 import com.seven.hzxubowen.zhihudaily.Util.LogicUtil;
@@ -121,6 +122,12 @@ public class TitleFragment extends BaseFragment implements ListView.OnItemClickL
             mNewsAdapter.notifyDataSetChanged();
             //LogicUtil.setListViewHeight(mListView);
         }
+
+        @Override
+        public void responseFail(VolleyError error){
+
+        }
+
     };
 
     public void getTitleResponse(String response){

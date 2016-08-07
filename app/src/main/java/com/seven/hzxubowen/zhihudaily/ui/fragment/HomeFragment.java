@@ -12,8 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.Volley;
 import com.seven.hzxubowen.zhihudaily.R;
 import com.seven.hzxubowen.zhihudaily.Util.OnFragmentInteractionListener;
 import com.seven.hzxubowen.zhihudaily.Util.OnLoadMoreListener;
@@ -22,9 +22,7 @@ import com.seven.hzxubowen.zhihudaily.adapter.ComplexRecyclerViewAdapter;
 import com.seven.hzxubowen.zhihudaily.adapter.MyViewPagerAdapter;
 import com.seven.hzxubowen.zhihudaily.bean.ApiURL;
 import com.seven.hzxubowen.zhihudaily.bean.Story;
-import com.seven.hzxubowen.zhihudaily.cache.BitmapCache;
 import com.seven.hzxubowen.zhihudaily.net.MyRequestQueue;
-import com.seven.hzxubowen.zhihudaily.widget.CircleIndicator;
 import com.seven.hzxubowen.zhihudaily.widget.TopStoryView;
 
 import org.json.JSONArray;
@@ -80,7 +78,10 @@ public class HomeFragment extends BaseFragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        resetData();
+        mNewsList = new ArrayList<>();
+        mTopIdList = new ArrayList<>();
+        mNewsIdList = new ArrayList<>();
+        mTopViewList = new ArrayList<>();
 
         //获取全局的RequestQueue和ImageLoader
         mQueue = MyRequestQueue.getSingleton(getActivity()).getRequestQueue();
@@ -105,6 +106,7 @@ public class HomeFragment extends BaseFragment{
             @Override
             public void onRefresh() {
                 requestType = 1;
+                Log.e("requestType", "" + requestType);
                 isNeedRefresh = true;
                 refresh();
             }
@@ -141,7 +143,6 @@ public class HomeFragment extends BaseFragment{
                 Log.e("xbw2", "News:" + mNewsList.size() + " Top:" + mTopViewList.size());
                 if(!mSwipeRefreshLayout.isRefreshing()){
                     mSwipeRefreshLayout.setRefreshing(true);
-                    Log.e("refreshToTrue", "excuted");
                 }
                 getHomeResponse(ApiURL.ZHIHU_LATEST_URL);
                 isNeedRefresh = false;
@@ -176,7 +177,6 @@ public class HomeFragment extends BaseFragment{
                 mNewsIdList.add(jo.getString("id"));
             }
             if(jsonObject.has("top_stories")){
-                Log.e("top", "excuted");
                 JSONArray topJsonArray = jsonObject.getJSONArray("top_stories");
                 for(int i=0; i<topJsonArray.length(); i++){
                     JSONObject jo = (JSONObject) topJsonArray.get(i);
@@ -210,10 +210,10 @@ public class HomeFragment extends BaseFragment{
                     adapter.notifyItemRangeChanged(1, mNewsList.size());
                     break;
                 case 1:
+
                     resHomeJsonResponse(response);
                     myViewPagerAdapter.notifyDataSetChanged();
                     adapter.notifyItemRangeChanged(1, mNewsList.size());
-                    Log.e("xbw2", "News:" + mNewsList.size() + " Top:" + mTopViewList.size());
                     if(mSwipeRefreshLayout.isRefreshing()){
                         mSwipeRefreshLayout.setRefreshing(false);
                     }
@@ -231,6 +231,13 @@ public class HomeFragment extends BaseFragment{
                     dismissLoadingFragment();
                     resHomeJsonResponse(response);
                     break;
+            }
+        }
+
+        @Override
+        public void responseFail(VolleyError error){
+            if(mSwipeRefreshLayout.isRefreshing()){
+                mSwipeRefreshLayout.setRefreshing(false);
             }
         }
     };
@@ -268,13 +275,9 @@ public class HomeFragment extends BaseFragment{
 
     //下拉刷新时清空数据源
     private void resetData(){
-        mNewsList = null;
-        mTopViewList = null;
-        mTopIdList = null;
-        mNewsIdList = null;
-        mNewsList = new ArrayList<>();
-        mTopViewList = new ArrayList<>();
-        mTopIdList = new ArrayList<>();
-        mNewsIdList = new ArrayList<>();
+        mNewsList.clear();
+        mTopViewList.clear();
+        mTopIdList.clear();
+        mNewsIdList.clear();
     }
 }

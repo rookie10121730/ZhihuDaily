@@ -1,8 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rl_splash"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.seven.hzxubowen.zhihudaily.ui.activity.SplashActivity">
+    android:background="#000000"
+    android:orientation="vertical">
 
-</RelativeLayout>
+    <ImageView
+        android:visibility="invisible"
+        android:id="@+id/splash_body"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8"
+        android:src = "@drawable/splash"
+        android:scaleType="fitXY" />
+
+
+    <include layout="@layout/splash_footer_view"
+        android:id="@+id/splash_footer"
+        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:layout_width="match_parent"/>
+
+</LinearLayout>
+

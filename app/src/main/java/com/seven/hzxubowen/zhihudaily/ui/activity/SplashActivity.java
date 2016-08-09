@@ -6,13 +6,11 @@ import android.animation.ObjectAnimator;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.BounceInterpolator;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import com.seven.hzxubowen.zhihudaily.R;
+import com.seven.hzxubowen.zhihudaily.Util.GraphUtil;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -37,6 +35,7 @@ public class SplashActivity extends AppCompatActivity {
             super.onAnimationEnd(animation);
             if(animation == tranOa){
                 img.setVisibility(View.VISIBLE);
+                img.setImageBitmap(GraphUtil.decodeSampledBitmapFromResource(getResources(), R.drawable.splash, 540, 960));
                 alphaOa.start();
             }else{
                 Intent intent = new Intent(SplashActivity.this, HomeActivity.class);

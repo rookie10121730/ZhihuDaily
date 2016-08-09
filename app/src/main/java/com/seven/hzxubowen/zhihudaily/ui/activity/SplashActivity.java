@@ -52,7 +52,7 @@ public class SplashActivity extends AppCompatActivity {
         alphaOa.setDuration(2500);
         alphaOa.addListener(adapter);
 
-        tranOa = ObjectAnimator.ofFloat(sfv, "translationY", Animation.RELATIVE_TO_SELF, 480, 0);
+        tranOa = ObjectAnimator.ofFloat(sfv, "translationY", 480, 0);
         tranOa.setDuration(1000);
         tranOa.addListener(adapter);
         tranOa.start();

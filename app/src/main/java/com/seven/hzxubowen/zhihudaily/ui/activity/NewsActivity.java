@@ -150,5 +150,8 @@ public class NewsActivity extends AppCompatActivity{
         startActivity(Intent.createChooser(shareIntent, "Share link using"));
     }
 
+    public void waitForAdd(View v){
+        Toast.makeText(this, "该功能待添加", Toast.LENGTH_SHORT).show();
+    }
 
 }

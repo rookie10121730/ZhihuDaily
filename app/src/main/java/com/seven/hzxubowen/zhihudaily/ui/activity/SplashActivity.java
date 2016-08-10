@@ -57,4 +57,10 @@ public class SplashActivity extends AppCompatActivity {
         tranOa.start();
 
     }
+
+    @Override
+    public void onBackPressed(){
+
+    }
+
 }

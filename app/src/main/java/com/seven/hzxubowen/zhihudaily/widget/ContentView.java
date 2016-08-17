@@ -3,11 +3,15 @@ package com.seven.hzxubowen.zhihudaily.widget;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.media.Image;
+import android.support.v4.view.MotionEventCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
@@ -74,4 +78,28 @@ public class ContentView extends FrameLayout {
     public TextView getmTextView() {
         return mTextView;
     }
+
+    /*
+    @Override
+    public boolean onTouchEvent(MotionEvent event){
+        int action = MotionEventCompat.getActionMasked(event);
+
+        switch(action) {
+            case MotionEvent.ACTION_DOWN:
+                Log.e("Action", "down");
+                return true;
+            case MotionEvent.ACTION_MOVE:
+                Log.e("Action", "move");
+                return true;
+            case MotionEvent.ACTION_UP:
+                Log.e("Action", "up");
+                return true;
+            default:
+                return super.onTouchEvent(event);
+        }
+    }
+    */
+
+
+
 }

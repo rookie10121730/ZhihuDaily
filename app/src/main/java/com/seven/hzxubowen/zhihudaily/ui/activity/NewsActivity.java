@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -153,5 +154,8 @@ public class NewsActivity extends AppCompatActivity{
     public void waitForAdd(View v){
         Toast.makeText(this, "该功能待添加", Toast.LENGTH_SHORT).show();
     }
+
+
+
 
 }

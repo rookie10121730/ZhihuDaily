@@ -131,7 +131,8 @@ public class CircleIndicator extends View{
         invalidate();
     }
     private void createTabItems() {
-        for (int i = 0; i < viewPager.getAdapter().getCount(); i++) {
+//        for (int i = 0; i < viewPager.getAdapter().getCount(); i++) {
+        for (int i = 0; i < 5; i++) {
             OvalShape circle = new OvalShape();
             ShapeDrawable drawable = new ShapeDrawable(circle);
             ShapeHolder shapeHolder = new ShapeHolder(drawable);
@@ -140,6 +141,7 @@ public class CircleIndicator extends View{
             paint.setAntiAlias(true);
             shapeHolder.setPaint(paint);
             tabItems.add(shapeHolder);
+
         }
     }
 
